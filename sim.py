@@ -84,7 +84,7 @@ class Life(Simulation):
         self.population = 100
         self.next_birth = 1
         self.death_rate = 0.05
-        self.birth_rate = 0.002
+        self.birth_rate = 0.01
 
         for new_life in xrange(self.population):
             life_form = self.new_life()
@@ -114,15 +114,17 @@ class Life(Simulation):
                 self.population -= 1
                 print "A death to %d" % type_of_life['id']
 
-    def life(self, _):
-        life = 1 if random() < self.birth_rate else None
-        if life:
-            type_of_life = self.new_life()
-            self.population += 1
-            print "A life to %d" % type_of_life['id']
+    def life(self, type_of_life):
+        if type_of_life.get('life'):
+            # guess we all make babies for now..
+            life = 1 if random() < self.birth_rate else None
+            if life:
+                type_of_life = self.new_life()
+                self.population += 1
+                print "A life to %d" % type_of_life['id']
 
     def eotw(self, _):
-        if self.population == 0:
+        if self.population <= 0:
             print 'Game over. Time = %d' % self.time
             sys.exit(1)
         
