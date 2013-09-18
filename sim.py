@@ -127,6 +127,7 @@ class Life(Simulation):
     def eotw(self, _):
         if self.population <= 0:
             print 'Game over. Time = %d' % self.time
+            print 'Total # of %s = %d' % (self.step_type, self.time - self.beginning_of_time)
             sys.exit(1)
 
         print "There are %d life forms still available." % self.population
