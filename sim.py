@@ -82,7 +82,7 @@ class Life(Simulation):
     def setup(self):
         print "Populating simulation..."
 
-        self.population = 100
+        self.population = 10
         self.next_birth = 1
         self.death_rate = 0.05
         self.birth_rate = 0.01
@@ -127,7 +127,7 @@ class Life(Simulation):
     def eotw(self, _):
         if self.population <= 0:
             print 'Game over. Time = %d' % self.time
-            print 'Total # of %s = %d' % (self.step_type, self.time - self.beginning_of_time)
+            print 'Total # of %ss = %d' % (self.step_type, self.time - self.beginning_of_time)
             sys.exit(1)
 
         print "There are %d life forms still available." % self.population
