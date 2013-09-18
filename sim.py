@@ -4,35 +4,36 @@ from random import random
 import time
 import sys
 
+""" What is a simulation?
+
+    Attempt #1:
+      a simulation is a set of occurrences in a finite amount of time
+
+        time        | where the line begins
+        time_end    | where the line ends
+
+        step        | the amount of time increased in each cycle
+                    | total # of cycles = (time_end - time) / step
+
+        occurrences | a list of things that happen
+                    | "occurs" for short..
+
+        dynamics    | a list of things that cause change
+
+        sim         | the way in which all of the parts work together
+"""
+
 class Simulation(object):
-    
+
     def __init__(self):
         print 'Simulation initialized'
 
-        """ What is a simulation?
-
-            Attempt #1:
-              a simulation is a set of occurrences in a finite amount of time
-
-                time        | where the line begins
-                time_end    | where the line ends
-
-                step        | the amount of time increased in each cycle
-                            | total # of cycles = (time_end - time) / step
-
-                occurrences | a list of things that happen
-                            | "occurs" for short..
-
-                dynamics    | a list of things that cause change
-
-                sim         | the way in which all of the parts work together
-        
-        """
         # time is infinite, you are not
         self.time     = 0
         self.time_end = 0
 
-        self.step     = 0
+        self.step      = 0
+        self.step_type = "Tick"
 
         self.occurs   = []
         self.dynamics = []
@@ -44,7 +45,7 @@ class Simulation(object):
     def simulate(self):
         for event in self.occurs[:-1]:
             for variable in self.dynamics:
-                event(variable) 
+                event(variable)
         self.occurs[-1]("")
 
     def run(self):
@@ -56,24 +57,24 @@ class Simulation(object):
             self.simulate()
 
             # time ticks by
-            print 'Tick: %d' % self.time
+            print '%s: %d' % (self.step_type, self.time)
             self.tick()
 
 class Life(Simulation):
 
     def __init__(self):
         Simulation.__init__(self)
-        
+
         self.time     = 2013
         self.time_end = 0
-        
+
         print "Life has begun has begun."
         self.beginning_of_time = self.time
 
-        self.step     = 1
+        self.step      = 1
+        self.step_type = "Year"
 
         self.occurs   = []
-
         self.dynamics = []
 
         self.ready    = 0
@@ -127,7 +128,7 @@ class Life(Simulation):
         if self.population <= 0:
             print 'Game over. Time = %d' % self.time
             sys.exit(1)
-        
+
         print "There are %d life forms still available." % self.population
 
 
