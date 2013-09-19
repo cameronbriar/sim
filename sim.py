@@ -84,7 +84,7 @@ class Life(Simulation):
 
         self.population = 10
         self.next_birth = 1
-        self.death_rate = 0.05
+        self.death_rate = 0.01
         self.birth_rate = 0.01
 
         for new_life in xrange(self.population):
@@ -108,10 +108,10 @@ class Life(Simulation):
 
     def death(self, type_of_life):
         if type_of_life.get('life'):
+            # roll the dice
             life = None if random() < self.death_rate else type_of_life.get('life')
-
-            if not life and type_of_life['life']:
-                type_of_life['life'] = life
+            if not life:
+                type_of_life['life'] = life # or lack there of
                 self.population -= 1
                 print "A death to %d" % type_of_life['id']
 
